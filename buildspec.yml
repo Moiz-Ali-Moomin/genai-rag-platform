@@ -1,11 +1,18 @@
 ﻿version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - echo "Logging in to Amazon ECR..."
+      - REGISTRY_URL=$(echo $REPOSITORY_URL | cut -d'/' -f1)
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $REGISTRY_URL
   build:
     commands:
-      - echo "Current directory:"
-      - pwd
-      - echo "Files in current directory:"
-      - ls -la
-      - echo "Recursive file list:"
-      - find . -maxdepth 3
+      - echo "Build starting..."
+      - docker build -t $REPOSITORY_NAME -f docker/Dockerfile .
+      - docker tag $REPOSITORY_NAME:latest $REPOSITORY_URL:latest
+  post_build:
+    commands:
+      - echo "Pushing the Docker image..."
+      - docker push $REPOSITORY_URL:latest
+      - echo "Done."
