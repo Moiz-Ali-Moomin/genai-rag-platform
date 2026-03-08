@@ -38,8 +38,7 @@ demo = gr.ChatInterface(
     examples=[
         "What are the main topics of the documents?", 
         "Summarize the key findings."
-    ],
-    theme=gr.themes.Soft()
+    ]
 )
 
 if __name__ == "__main__":
