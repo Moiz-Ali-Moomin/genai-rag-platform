@@ -15,13 +15,14 @@ resource "aws_apprunner_service" "this" {
   service_name = var.service_name
 
   source_configuration {
+    auto_deployments_enabled = true
     authentication_configuration {
       access_role_arn = var.access_role_arn
     }
 
     image_repository {
       image_configuration {
-        port = "8080"
+        port = "8000"
         
         runtime_environment_variables = {
           AWS_DEFAULT_REGION        = var.aws_region

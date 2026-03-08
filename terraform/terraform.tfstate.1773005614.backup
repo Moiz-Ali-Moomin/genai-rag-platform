@@ -1,0 +1,1423 @@
+{
+  "version": 4,
+  "terraform_version": "1.5.7",
+  "serial": 73,
+  "lineage": "6827b4cd-dd91-e682-7994-75897ed24451",
+  "outputs": {
+    "s3_bucket_name": {
+      "value": "genai-rag-dev-docs-734366662579",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "734366662579",
+            "arn": "arn:aws:iam::734366662579:user/test-deploy",
+            "id": "734366662579",
+            "user_id": "AIDA2V65J76ZZT5BYZGIN"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.apprunner",
+      "mode": "managed",
+      "type": "aws_apprunner_auto_scaling_configuration_version",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:apprunner:us-east-1:734366662579:autoscalingconfiguration/genai-rag-dev-app-autoscaling/1/8e3896accc7944eba78f211cf57e7113",
+            "auto_scaling_configuration_name": "genai-rag-dev-app-autoscaling",
+            "auto_scaling_configuration_revision": 1,
+            "has_associated_service": true,
+            "id": "arn:aws:apprunner:us-east-1:734366662579:autoscalingconfiguration/genai-rag-dev-app-autoscaling/1/8e3896accc7944eba78f211cf57e7113",
+            "is_default": false,
+            "latest": true,
+            "max_concurrency": 100,
+            "max_size": 10,
+            "min_size": 1,
+            "status": "active",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.bedrock.aws_bedrockagent_data_source.s3_datasource",
+            "module.bedrock.aws_bedrockagent_knowledge_base.this",
+            "module.bedrock.data.aws_region.current",
+            "module.codebuild.aws_codebuild_project.this",
+            "module.ecr.aws_ecr_repository.chatbot",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.opensearch.aws_opensearchserverless_access_policy.data_access",
+            "module.opensearch.aws_opensearchserverless_collection.vector_store",
+            "module.opensearch.aws_opensearchserverless_security_policy.encryption",
+            "module.opensearch.aws_opensearchserverless_security_policy.network",
+            "module.opensearch.data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.bedrock",
+      "mode": "data",
+      "type": "aws_region",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "US East (N. Virginia)",
+            "endpoint": "ec2.us-east-1.amazonaws.com",
+            "id": "us-east-1",
+            "name": "us-east-1"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.bedrock",
+      "mode": "managed",
+      "type": "aws_bedrockagent_data_source",
+      "name": "s3_datasource",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "data_deletion_policy": "DELETE",
+            "data_source_configuration": [
+              {
+                "confluence_configuration": [],
+                "s3_configuration": [
+                  {
+                    "bucket_arn": "arn:aws:s3:::genai-rag-dev-docs-734366662579",
+                    "bucket_owner_account_id": null,
+                    "inclusion_prefixes": null
+                  }
+                ],
+                "salesforce_configuration": [],
+                "share_point_configuration": [],
+                "type": "S3",
+                "web_configuration": []
+              }
+            ],
+            "data_source_id": "BLBU2KIHOO",
+            "description": null,
+            "id": "BLBU2KIHOO,99LSYBMLW2",
+            "knowledge_base_id": "99LSYBMLW2",
+            "name": "genai-rag-dev-kb-s3-datasource",
+            "server_side_encryption_configuration": [],
+            "timeouts": null,
+            "vector_ingestion_configuration": [
+              {
+                "chunking_configuration": [
+                  {
+                    "chunking_strategy": "FIXED_SIZE",
+                    "fixed_size_chunking_configuration": [
+                      {
+                        "max_tokens": 300,
+                        "overlap_percentage": 20
+                      }
+                    ],
+                    "hierarchical_chunking_configuration": [],
+                    "semantic_chunking_configuration": []
+                  }
+                ],
+                "custom_transformation_configuration": [],
+                "parsing_configuration": []
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.bedrock.aws_bedrockagent_knowledge_base.this",
+            "module.bedrock.data.aws_region.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.opensearch.aws_opensearchserverless_access_policy.data_access",
+            "module.opensearch.aws_opensearchserverless_collection.vector_store",
+            "module.opensearch.aws_opensearchserverless_security_policy.encryption",
+            "module.opensearch.aws_opensearchserverless_security_policy.network",
+            "module.opensearch.data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.bedrock",
+      "mode": "managed",
+      "type": "aws_bedrockagent_knowledge_base",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:bedrock:us-east-1:734366662579:knowledge-base/YMZBZUNR4X",
+            "created_at": "2026-03-08T21:32:47Z",
+            "description": null,
+            "failure_reasons": null,
+            "id": "YMZBZUNR4X",
+            "knowledge_base_configuration": [
+              {
+                "type": "VECTOR",
+                "vector_knowledge_base_configuration": [
+                  {
+                    "embedding_model_arn": "arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v2:0",
+                    "embedding_model_configuration": [],
+                    "supplemental_data_storage_configuration": []
+                  }
+                ]
+              }
+            ],
+            "name": "genai-rag-dev-kb",
+            "role_arn": "arn:aws:iam::734366662579:role/bedrock-kb-role",
+            "storage_configuration": [
+              {
+                "opensearch_serverless_configuration": [
+                  {
+                    "collection_arn": "arn:aws:aoss:us-east-1:734366662579:collection/wcrdedo1dlsyx9xug1y6",
+                    "field_mapping": [
+                      {
+                        "metadata_field": "AMAZON_BEDROCK_METADATA",
+                        "text_field": "AMAZON_BEDROCK_TEXT_CHUNK",
+                        "vector_field": "bedrock-embedding"
+                      }
+                    ],
+                    "vector_index_name": "bedrock-knowledge-base-default-index"
+                  }
+                ],
+                "pinecone_configuration": [],
+                "rds_configuration": [],
+                "redis_enterprise_cloud_configuration": [],
+                "type": "OPENSEARCH_SERVERLESS"
+              }
+            ],
+            "tags": null,
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "timeouts": null,
+            "updated_at": "2026-03-08T21:32:47Z"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.bedrock.data.aws_region.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.opensearch.aws_opensearchserverless_access_policy.data_access",
+            "module.opensearch.aws_opensearchserverless_collection.vector_store",
+            "module.opensearch.aws_opensearchserverless_security_policy.encryption",
+            "module.opensearch.aws_opensearchserverless_security_policy.network",
+            "module.opensearch.data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.codebuild",
+      "mode": "managed",
+      "type": "aws_codebuild_project",
+      "name": "this",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:codebuild:us-east-1:734366662579:project/genai-rag-dev-build",
+            "artifacts": [
+              {
+                "artifact_identifier": "",
+                "bucket_owner_access": "",
+                "encryption_disabled": false,
+                "location": "",
+                "name": "",
+                "namespace_type": "",
+                "override_artifact_name": false,
+                "packaging": "",
+                "path": "",
+                "type": "NO_ARTIFACTS"
+              }
+            ],
+            "badge_enabled": false,
+            "badge_url": "",
+            "build_batch_config": [],
+            "build_timeout": 10,
+            "cache": [
+              {
+                "location": "",
+                "modes": [],
+                "type": "NO_CACHE"
+              }
+            ],
+            "concurrent_build_limit": 0,
+            "description": "Builds the Docker image for the GenAI RAG chatbot and pushes it to ECR",
+            "encryption_key": "arn:aws:kms:us-east-1:734366662579:alias/aws/s3",
+            "environment": [
+              {
+                "certificate": "",
+                "compute_type": "BUILD_GENERAL1_SMALL",
+                "environment_variable": [
+                  {
+                    "name": "AWS_DEFAULT_REGION",
+                    "type": "PLAINTEXT",
+                    "value": "us-east-1"
+                  },
+                  {
+                    "name": "REPOSITORY_URL",
+                    "type": "PLAINTEXT",
+                    "value": "734366662579.dkr.ecr.us-east-1.amazonaws.com/genai-rag-dev"
+                  },
+                  {
+                    "name": "REPOSITORY_NAME",
+                    "type": "PLAINTEXT",
+                    "value": "genai-rag-dev"
+                  }
+                ],
+                "fleet": [],
+                "image": "aws/codebuild/amazonlinux2-x86_64-standard:5.0",
+                "image_pull_credentials_type": "CODEBUILD",
+                "privileged_mode": true,
+                "registry_credential": [],
+                "type": "LINUX_CONTAINER"
+              }
+            ],
+            "file_system_locations": [],
+            "id": "arn:aws:codebuild:us-east-1:734366662579:project/genai-rag-dev-build",
+            "logs_config": [
+              {
+                "cloudwatch_logs": [
+                  {
+                    "group_name": "",
+                    "status": "ENABLED",
+                    "stream_name": ""
+                  }
+                ],
+                "s3_logs": [
+                  {
+                    "bucket_owner_access": "",
+                    "encryption_disabled": false,
+                    "location": "",
+                    "status": "DISABLED"
+                  }
+                ]
+              }
+            ],
+            "name": "genai-rag-dev-build",
+            "project_visibility": "PRIVATE",
+            "public_project_alias": "",
+            "queued_timeout": 480,
+            "resource_access_role": "",
+            "secondary_artifacts": [],
+            "secondary_source_version": [],
+            "secondary_sources": [],
+            "service_role": "arn:aws:iam::734366662579:role/codebuild-service-role",
+            "source": [
+              {
+                "auth": [],
+                "build_status_config": [],
+                "buildspec": "",
+                "git_clone_depth": 0,
+                "git_submodules_config": [],
+                "insecure_ssl": false,
+                "location": "genai-rag-dev-docs-734366662579/source/genai-chatbot.zip",
+                "report_build_status": false,
+                "type": "S3"
+              }
+            ],
+            "source_version": "",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "vpc_config": []
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.ecr.aws_ecr_repository.chatbot",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.ecr",
+      "mode": "managed",
+      "type": "aws_ecr_repository",
+      "name": "chatbot",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:ecr:us-east-1:734366662579:repository/genai-rag-dev",
+            "encryption_configuration": [
+              {
+                "encryption_type": "AES256",
+                "kms_key": ""
+              }
+            ],
+            "force_delete": true,
+            "id": "genai-rag-dev",
+            "image_scanning_configuration": [
+              {
+                "scan_on_push": true
+              }
+            ],
+            "image_tag_mutability": "MUTABLE",
+            "name": "genai-rag-dev",
+            "registry_id": "734366662579",
+            "repository_url": "734366662579.dkr.ecr.us-east-1.amazonaws.com/genai-rag-dev",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiZGVsZXRlIjoxMjAwMDAwMDAwMDAwfX0="
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "734366662579",
+            "arn": "arn:aws:iam::734366662579:user/test-deploy",
+            "id": "734366662579",
+            "user_id": "AIDA2V65J76ZZT5BYZGIN"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "data",
+      "type": "aws_region",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "US East (N. Virginia)",
+            "endpoint": "ec2.us-east-1.amazonaws.com",
+            "id": "us-east-1",
+            "name": "us-east-1"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "apprunner_permissions",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:policy/apprunner-permissions-policy",
+            "attachment_count": 1,
+            "description": "Permissions for App Runner container to access required AWS resources",
+            "id": "arn:aws:iam::734366662579:policy/apprunner-permissions-policy",
+            "name": "apprunner-permissions-policy",
+            "name_prefix": "",
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"bedrock:RetrieveAndGenerate\",\"bedrock:Retrieve\",\"bedrock:InvokeModel\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"aoss:APIAccessAll\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:aoss:us-east-1:734366662579:collection/*\"]},{\"Action\":[\"s3:GetObject\",\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::genai-rag-dev-docs-734366662579\",\"arn:aws:s3:::genai-rag-dev-docs-734366662579/*\"]},{\"Action\":[\"ssm:GetParameter\",\"ssm:GetParameters\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:ssm:us-east-1:734366662579:parameter/chatbot/openai_api_key\"]}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPA2V65J76ZZ5ODL5LUQ",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "bedrock_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:policy/bedrock-s3-opensearch-policy",
+            "attachment_count": 1,
+            "description": "Policy for Bedrock to access S3 and OpenSearch",
+            "id": "arn:aws:iam::734366662579:policy/bedrock-s3-opensearch-policy",
+            "name": "bedrock-s3-opensearch-policy",
+            "name_prefix": "",
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"s3:GetObject\",\"s3:ListBucket\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::genai-rag-dev-docs-734366662579\",\"arn:aws:s3:::genai-rag-dev-docs-734366662579/*\"]},{\"Action\":[\"aoss:APIAccessAll\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:aoss:us-east-1:734366662579:collection/*\"]},{\"Action\":[\"bedrock:InvokeModel\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:bedrock:us-east-1::foundation-model/amazon.titan-embed-text-v2:0\"]}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPA2V65J76Z5KLSWNEA7",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "codebuild_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:policy/codebuild-policy",
+            "attachment_count": 1,
+            "description": "Policy for CodeBuild to access ECR and CloudWatch logs",
+            "id": "arn:aws:iam::734366662579:policy/codebuild-policy",
+            "name": "codebuild-policy",
+            "name_prefix": "",
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"ecr:GetAuthorizationToken\",\"ecr:BatchCheckLayerAvailability\",\"ecr:GetDownloadUrlForLayer\",\"ecr:BatchGetImage\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"s3:GetObject\",\"s3:GetObjectVersion\",\"s3:GetBucketVersioning\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":[\"arn:aws:s3:::genai-rag-dev-docs-734366662579\",\"arn:aws:s3:::genai-rag-dev-docs-734366662579/*\"]}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPA2V65J76ZX7KXDCHI4",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            }
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "apprunner_access",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:role/apprunner-access-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":[\"build.apprunner.amazonaws.com\",\"apprunner.amazonaws.com\"]}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-03-08T19:43:53Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "apprunner-access-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess"
+            ],
+            "max_session_duration": 3600,
+            "name": "apprunner-access-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "unique_id": "AROA2V65J76ZWSTELCJ72"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "apprunner_instance",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:role/apprunner-instance-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"tasks.apprunner.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-03-08T19:43:53Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "apprunner-instance-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::734366662579:policy/apprunner-permissions-policy"
+            ],
+            "max_session_duration": 3600,
+            "name": "apprunner-instance-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "unique_id": "AROA2V65J76ZQ2VTE3YWL"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "bedrock_knowledge_base",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:role/bedrock-kb-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Condition\":{\"StringEquals\":{\"aws:SourceAccount\":\"734366662579\"}},\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"bedrock.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-03-08T19:43:54Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "bedrock-kb-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::734366662579:policy/bedrock-s3-opensearch-policy"
+            ],
+            "max_session_duration": 3600,
+            "name": "bedrock-kb-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "unique_id": "AROA2V65J76ZVSWBBMWMM"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "codebuild",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::734366662579:role/codebuild-service-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-03-08T20:30:52Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "codebuild-service-role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::734366662579:policy/codebuild-policy"
+            ],
+            "max_session_duration": 3600,
+            "name": "codebuild-service-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "unique_id": "AROA2V65J76Z3B3YUUIUM"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "apprunner_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "apprunner-instance-role-20260308194355312300000002",
+            "policy_arn": "arn:aws:iam::734366662579:policy/apprunner-permissions-policy",
+            "role": "apprunner-instance-role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "apprunner_ecr_access",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "apprunner-access-role-20260308194354737500000001",
+            "policy_arn": "arn:aws:iam::aws:policy/service-role/AWSAppRunnerServicePolicyForECRAccess",
+            "role": "apprunner-access-role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "bedrock_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "bedrock-kb-role-20260308194355659500000003",
+            "policy_arn": "arn:aws:iam::734366662579:policy/bedrock-s3-opensearch-policy",
+            "role": "bedrock-kb-role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.iam",
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "codebuild_attach",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "codebuild-service-role-20260308203053692200000001",
+            "policy_arn": "arn:aws:iam::734366662579:policy/codebuild-policy",
+            "role": "codebuild-service-role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.codebuild",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.opensearch",
+      "mode": "data",
+      "type": "aws_caller_identity",
+      "name": "current",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "account_id": "734366662579",
+            "arn": "arn:aws:iam::734366662579:user/test-deploy",
+            "id": "734366662579",
+            "user_id": "AIDA2V65J76ZZT5BYZGIN"
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "module": "module.opensearch",
+      "mode": "managed",
+      "type": "aws_opensearchserverless_access_policy",
+      "name": "data_access",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Data access policy for vector db",
+            "id": "genai-rag-dev-vector-db-access",
+            "name": "genai-rag-dev-vector-db-access",
+            "policy": "[{\"Principal\":[\"arn:aws:iam::734366662579:user/test-deploy\",\"arn:aws:iam::734366662579:role/bedrock-kb-role\"],\"Rules\":[{\"Permission\":[\"aoss:CreateCollectionItems\",\"aoss:DeleteCollectionItems\",\"aoss:UpdateCollectionItems\",\"aoss:DescribeCollectionItems\"],\"Resource\":[\"collection/genai-rag-dev-vector-db\"],\"ResourceType\":\"collection\"},{\"Permission\":[\"aoss:CreateIndex\",\"aoss:DeleteIndex\",\"aoss:UpdateIndex\",\"aoss:DescribeIndex\",\"aoss:ReadDocument\",\"aoss:WriteDocument\"],\"Resource\":[\"index/genai-rag-dev-vector-db/*\"],\"ResourceType\":\"index\"}]}]",
+            "policy_version": "MTc3Mjk5OTAzNzg5M18x",
+            "type": "data"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.opensearch.data.aws_caller_identity.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.opensearch",
+      "mode": "managed",
+      "type": "aws_opensearchserverless_collection",
+      "name": "vector_store",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:aoss:us-east-1:734366662579:collection/wcrdedo1dlsyx9xug1y6",
+            "collection_endpoint": "https://wcrdedo1dlsyx9xug1y6.us-east-1.aoss.amazonaws.com",
+            "dashboard_endpoint": "https://wcrdedo1dlsyx9xug1y6.us-east-1.aoss.amazonaws.com/_dashboards",
+            "description": null,
+            "id": "wcrdedo1dlsyx9xug1y6",
+            "kms_key_arn": "auto",
+            "name": "genai-rag-dev-vector-db",
+            "standby_replicas": "DISABLED",
+            "tags": null,
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "timeouts": null,
+            "type": "VECTORSEARCH"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.opensearch.aws_opensearchserverless_security_policy.encryption",
+            "module.opensearch.aws_opensearchserverless_security_policy.network",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.opensearch",
+      "mode": "managed",
+      "type": "aws_opensearchserverless_security_policy",
+      "name": "encryption",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Encryption policy for vector db",
+            "id": "genai-rag-dev-vector-db-enc",
+            "name": "genai-rag-dev-vector-db-enc",
+            "policy": "{\"AWSOwnedKey\":true,\"Rules\":[{\"Resource\":[\"collection/genai-rag-dev-vector-db\"],\"ResourceType\":\"collection\"}]}",
+            "policy_version": "MTc3Mjk5OTAzNzkyM18x",
+            "type": "encryption"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.opensearch",
+      "mode": "managed",
+      "type": "aws_opensearchserverless_security_policy",
+      "name": "network",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "description": "Network policy for vector db",
+            "id": "genai-rag-dev-vector-db-net",
+            "name": "genai-rag-dev-vector-db-net",
+            "policy": "[{\"AllowFromPublic\":true,\"Rules\":[{\"Resource\":[\"collection/genai-rag-dev-vector-db\"],\"ResourceType\":\"collection\"},{\"Resource\":[\"collection/genai-rag-dev-vector-db\"],\"ResourceType\":\"dashboard\"}]}]",
+            "policy_version": "MTc3Mjk5OTAzNzkzM18x",
+            "type": "network"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.iam.aws_iam_policy.apprunner_permissions",
+            "module.iam.aws_iam_policy.bedrock_policy",
+            "module.iam.aws_iam_policy.codebuild_policy",
+            "module.iam.aws_iam_role.apprunner_access",
+            "module.iam.aws_iam_role.apprunner_instance",
+            "module.iam.aws_iam_role.bedrock_knowledge_base",
+            "module.iam.aws_iam_role.codebuild",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_attach",
+            "module.iam.aws_iam_role_policy_attachment.apprunner_ecr_access",
+            "module.iam.aws_iam_role_policy_attachment.bedrock_attach",
+            "module.iam.aws_iam_role_policy_attachment.codebuild_attach",
+            "module.iam.data.aws_caller_identity.current",
+            "module.iam.data.aws_region.current",
+            "module.parameter_store.aws_ssm_parameter.openai_api_key",
+            "module.s3.aws_s3_bucket.docs",
+            "module.s3.aws_s3_bucket_lifecycle_configuration.docs_lifecycle",
+            "module.s3.aws_s3_bucket_public_access_block.docs_pab",
+            "module.s3.aws_s3_bucket_server_side_encryption_configuration.docs_encryption",
+            "module.s3.aws_s3_bucket_versioning.docs_versioning"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.parameter_store",
+      "mode": "managed",
+      "type": "aws_ssm_parameter",
+      "name": "openai_api_key",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allowed_pattern": "",
+            "arn": "arn:aws:ssm:us-east-1:734366662579:parameter/chatbot/openai_api_key",
+            "data_type": "text",
+            "description": "OpenAI API Key for GenAI RAG Chatbot",
+            "has_value_wo": null,
+            "id": "/chatbot/openai_api_key",
+            "insecure_value": null,
+            "key_id": "alias/aws/ssm",
+            "name": "/chatbot/openai_api_key",
+            "overwrite": null,
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "tier": "Standard",
+            "type": "SecureString",
+            "value": "REDACTED",
+            "value_wo": null,
+            "value_wo_version": null,
+            "version": 1
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "value"
+              }
+            ]
+          ],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "module": "module.s3",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "docs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "acceleration_status": "",
+            "acl": null,
+            "arn": "arn:aws:s3:::genai-rag-dev-docs-734366662579",
+            "bucket": "genai-rag-dev-docs-734366662579",
+            "bucket_domain_name": "genai-rag-dev-docs-734366662579.s3.amazonaws.com",
+            "bucket_prefix": "",
+            "bucket_regional_domain_name": "genai-rag-dev-docs-734366662579.s3.us-east-1.amazonaws.com",
+            "cors_rule": [],
+            "force_destroy": true,
+            "grant": [
+              {
+                "id": "e25c0e8ad6a14c43521c340ae6e620e439cd750f0c4ed767e858093e856f8c42",
+                "permissions": [
+                  "FULL_CONTROL"
+                ],
+                "type": "CanonicalUser",
+                "uri": ""
+              }
+            ],
+            "hosted_zone_id": "Z3AQBSTGFYJSTF",
+            "id": "genai-rag-dev-docs-734366662579",
+            "lifecycle_rule": [
+              {
+                "abort_incomplete_multipart_upload_days": 0,
+                "enabled": true,
+                "expiration": [],
+                "id": "TransitionToStandardIA",
+                "noncurrent_version_expiration": [],
+                "noncurrent_version_transition": [],
+                "prefix": "",
+                "tags": {},
+                "transition": [
+                  {
+                    "date": "",
+                    "days": 30,
+                    "storage_class": "STANDARD_IA"
+                  }
+                ]
+              }
+            ],
+            "logging": [],
+            "object_lock_configuration": [],
+            "object_lock_enabled": false,
+            "policy": "",
+            "region": "us-east-1",
+            "replication_configuration": [],
+            "request_payer": "BucketOwner",
+            "server_side_encryption_configuration": [
+              {
+                "rule": [
+                  {
+                    "apply_server_side_encryption_by_default": [
+                      {
+                        "kms_master_key_id": "",
+                        "sse_algorithm": "AES256"
+                      }
+                    ],
+                    "bucket_key_enabled": false
+                  }
+                ]
+              }
+            ],
+            "tags": {},
+            "tags_all": {
+              "ManagedBy": "Terraform",
+              "Project": "GenAI-RAG-Chatbot"
+            },
+            "timeouts": null,
+            "versioning": [
+              {
+                "enabled": true,
+                "mfa_delete": false
+              }
+            ],
+            "website": [],
+            "website_domain": null,
+            "website_endpoint": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxMjAwMDAwMDAwMDAwLCJkZWxldGUiOjM2MDAwMDAwMDAwMDAsInJlYWQiOjEyMDAwMDAwMDAwMDAsInVwZGF0ZSI6MTIwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "data.aws_caller_identity.current"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.s3",
+      "mode": "managed",
+      "type": "aws_s3_bucket_lifecycle_configuration",
+      "name": "docs_lifecycle",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "bucket": "genai-rag-dev-docs-734366662579",
+            "expected_bucket_owner": "",
+            "id": "genai-rag-dev-docs-734366662579",
+            "rule": [
+              {
+                "abort_incomplete_multipart_upload": [],
+                "expiration": [],
+                "filter": [],
+                "id": "TransitionToStandardIA",
+                "noncurrent_version_expiration": [],
+                "noncurrent_version_transition": [],
+                "prefix": "",
+                "status": "Enabled",
+                "transition": [
+                  {
+                    "date": null,
+                    "days": 30,
+                    "storage_class": "STANDARD_IA"
+                  }
+                ]
+              }
+            ],
+            "timeouts": null,
+            "transition_default_minimum_object_size": "all_storage_classes_128K"
+          },
+          "sensitive_attributes": [],
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.s3.aws_s3_bucket.docs"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.s3",
+      "mode": "managed",
+      "type": "aws_s3_bucket_public_access_block",
+      "name": "docs_pab",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "block_public_acls": true,
+            "block_public_policy": true,
+            "bucket": "genai-rag-dev-docs-734366662579",
+            "id": "genai-rag-dev-docs-734366662579",
+            "ignore_public_acls": true,
+            "restrict_public_buckets": true
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.s3.aws_s3_bucket.docs"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.s3",
+      "mode": "managed",
+      "type": "aws_s3_bucket_server_side_encryption_configuration",
+      "name": "docs_encryption",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "genai-rag-dev-docs-734366662579",
+            "expected_bucket_owner": "",
+            "id": "genai-rag-dev-docs-734366662579",
+            "rule": [
+              {
+                "apply_server_side_encryption_by_default": [
+                  {
+                    "kms_master_key_id": "",
+                    "sse_algorithm": "AES256"
+                  }
+                ],
+                "bucket_key_enabled": false
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.s3.aws_s3_bucket.docs"
+          ]
+        }
+      ]
+    },
+    {
+      "module": "module.s3",
+      "mode": "managed",
+      "type": "aws_s3_bucket_versioning",
+      "name": "docs_versioning",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "bucket": "genai-rag-dev-docs-734366662579",
+            "expected_bucket_owner": "",
+            "id": "genai-rag-dev-docs-734366662579",
+            "mfa": null,
+            "versioning_configuration": [
+              {
+                "mfa_delete": "",
+                "status": "Enabled"
+              }
+            ]
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "data.aws_caller_identity.current",
+            "module.s3.aws_s3_bucket.docs"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
