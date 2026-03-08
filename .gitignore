@@ -28,3 +28,7 @@ crash.log
 
 # Output
 backend/requirements.txt.tmp
+
+*.exe
+*.zip   
+*.backup
