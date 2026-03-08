@@ -4,6 +4,8 @@ from config.settings import get_settings
 from models.chat import ChatRequest, ChatResponse
 from agents.rag_agent import get_rag_agent, RAGAgent
 from utils.logger import setup_logger
+import gradio as gr
+from app.ui import demo
 
 logger = setup_logger(__name__)
 settings = get_settings()
@@ -13,6 +15,9 @@ app = FastAPI(
     description="API for navigating Knowledge Bases with GenAI Document Retrieval",
     version="1.0.0",
 )
+
+# Mount Gradio UI
+app = gr.mount_gradio_app(app, demo, path="/ui")
 
 # CORS middleware
 app.add_middleware(
