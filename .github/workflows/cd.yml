@@ -1,0 +1,50 @@
+name: CD Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: genai-rag-platform
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f docker/Dockerfile .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+    - name: Deploy to AWS App Runner
+      uses: awslabs/amazon-app-runner-deploy@main
+      with:
+        service: genai-rag-platform-service
+        image: ${{ steps.build-image.outputs.image }}
+        access-role-arn: ${{ secrets.APP_RUNNER_ACCESS_ROLE_ARN }}
+        region: ${{ env.AWS_REGION }}
+        cpu: 1024
+        memory: 2048
+        port: 8000

@@ -1,0 +1,15 @@
+.git
+.gitignore
+.terraform
+terraform/.terraform
+terraform/terraform.tfstate*
+terraform/*.zip
+terraform/*.exe
+**/*.pyc
+**/__pycache__
+.env
+.pytest_cache
+.ruff_cache
+apply_error*.log
+*.pdf
+wheels
