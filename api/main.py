@@ -23,6 +23,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    """Root endpoint for health checks."""
+    return {"message": "GenAI RAG Platform API is running"}
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
