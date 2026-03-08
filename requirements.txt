@@ -8,3 +8,4 @@ llama-index>=0.9.36
 llama-index-llms-openai>=0.1.1
 llama-index-retrievers-bedrock>=0.1.1
 python-dotenv>=1.0.0
+huggingface_hub>=0.20.0
