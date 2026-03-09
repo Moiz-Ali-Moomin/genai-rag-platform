@@ -28,6 +28,8 @@ resource "aws_apprunner_service" "this" {
           AWS_DEFAULT_REGION        = var.aws_region
           BEDROCK_KNOWLEDGE_BASE_ID = var.bedrock_knowledge_base_id
           OPENAI_MODEL              = "gpt-4"
+          HF_HUB_OFFLINE            = "1"
+          GRADIO_ANALYTICS_ENABLED  = "False"
         }
         
         runtime_environment_secrets = {

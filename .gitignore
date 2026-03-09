@@ -32,3 +32,7 @@ backend/requirements.txt.tmp
 *.exe
 *.zip   
 *.backup
+
+# Logs and Build Artifacts
+*.log
+build_*.txt
